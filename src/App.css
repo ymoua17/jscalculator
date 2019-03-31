@@ -1,0 +1,39 @@
+.App {
+  text-align: center;
+  margin-top: 25px;
+}
+#display {
+  margin-top: 25px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 5px;
+  background-color: slategrey;
+  color: white;
+  font-size: 2em;
+  width:275px;
+  border-top-left-radius: 20%;
+  border-top-right-radius: 20%;
+}
+.inputs {
+  background-color: lightseagreen;
+  width:275px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-bottom: 15px;
+  border-bottom-left-radius: 10%;
+  border-bottom-right-radius: 10%;
+}
+button {
+  margin: 5px;
+}
+
+.btn {
+  font-size: 2em;
+  padding: 2px;
+  width: 55px;
+  height: 55px;
+  line-height: 1;
+}
+.lg-btn {
+  width: 122px;
+}
