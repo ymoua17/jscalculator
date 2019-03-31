@@ -19,11 +19,18 @@ class App extends Component {
       output: arrayOutput,
     })
   }
-
+  handleEqual = () => {
+    const resultArr = new Array(this.state.output);
+    // eslint-disable-next-line 
+    const result = eval(resultArr.join(""));
+    this.setState({
+      output: result,
+  })
+  console.log(this.state.output);
+  }
   
   render() {
     const displayOutput = this.state.output;
-    console.log(displayOutput);
     return (
       <div className="App">
         <h3>Javascript Calculator</h3>
@@ -54,7 +61,7 @@ class App extends Component {
           <br/>
           <button id="zero" className="btn btn-secondary lg-btn" value="0" onClick={this.handleButton}>0</button>
           <button id="decimal" className="btn btn-secondary" value="." onClick={this.handleButton}>.</button>
-          <button id="equal" className="btn btn-success">=</button>
+          <button id="equal" className="btn btn-success" onClick={this.handleEqual}>=</button>
         </div>
       </div>
     );
