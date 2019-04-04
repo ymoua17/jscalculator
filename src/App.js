@@ -1,39 +1,50 @@
 import React, { Component } from 'react';
 import './App.css';
 
+
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       output: '',
+      operators: [".", "+", "-", "*", "/"],
+      decimal: "."
     };
   }
+  //erase all data on the output display
   handleClearAll = () => {
     this.setState({
       output: '',
     })
   }
+  //button to enter a numeric value
   handleNumber = (num) => {
     this.setState({
       output: this.state.output + num.target.value,
     })
   }
+  //check if the first input is not empty and check if last input is an operator or decimal to prevent double entries
   handleOperator = (operator) => {
-    const operators = [".", "+", "-", "*", "/"];
-    if (operators.includes(this.state.output[this.state.output.length-1])) {
-      console.log("no double operators");
+    if (this.state.output === "" || this.state.operators.includes(this.state.output[this.state.output.length-1])) {
+      console.log("enter a number");
     } else {
       this.setState({
         output: this.state.output + operator.target.value,
       })
     }
   }
+  //check if the last value is not an operator before evaluating
   handleEqual = () => {
-    this.setState({
-      //eslint-disable-next-line 
-      output: eval(this.state.output)
-  })
+    if (this.state.output === "" || this.state.operators.includes(this.state.output[this.state.output.length-1])) {
+      console.log("not a solvable expression");
+    } else {
+      this.setState({
+        //eslint-disable-next-line 
+        output: eval(this.state.output)
+      })
+    }
   }
+  
   
   render() {
     const displayOutput = this.state.output;
@@ -45,9 +56,9 @@ class App extends Component {
           {displayOutput}
         </div>
         <div className="inputs">
-          <button id="clear" className="btn btn-danger" onClick={this.handleClearAll}>A/C</button>
-          <button id="add" className="btn btn-light" value="">+/-</button>
-          <button id="percent" className="btn btn-light" value="">%</button>
+          <button id="percent" className="btn btn-warning">{`<-`}</button> 
+          <button id="clearAll" className="btn btn-danger" onClick={this.handleClearAll}>AC</button>
+          <button id="clearEntry" className="btn btn-light">%</button>
           <button id="divide" className="btn btn-light operator" value="/" onClick={this.handleOperator}>/</button>
           <br/>
           <button id="nine" className="btn btn-secondary" value="7" onClick={this.handleNumber}>7</button>
