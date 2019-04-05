@@ -11,10 +11,17 @@ class App extends Component {
       decimal: "."
     };
   }
+
   //erase all data on the output display
   handleClearAll = () => {
     this.setState({
       output: '',
+    })
+  }
+  //percent button -> needs to fix
+  handlePercentButton = () => {
+    this.setState({
+      
     })
   }
   //button to enter a numeric value
@@ -40,7 +47,7 @@ class App extends Component {
     } else {
       this.setState({
         //eslint-disable-next-line 
-        output: eval(this.state.output)
+        output: eval(this.state.output).toString(),
       })
     }
   }
@@ -56,9 +63,8 @@ class App extends Component {
           {displayOutput}
         </div>
         <div className="inputs">
-          <button id="percent" className="btn btn-warning">{`<-`}</button> 
-          <button id="clearAll" className="btn btn-danger" onClick={this.handleClearAll}>AC</button>
-          <button id="clearEntry" className="btn btn-light">%</button>
+          <button id="clearAll" className="btn btn-danger lg-btn" onClick={this.handleClearAll}>AC</button>
+          <button id="Percent" className="btn btn-light" onClick={this.handlePercentButton}>%</button>
           <button id="divide" className="btn btn-light operator" value="/" onClick={this.handleOperator}>/</button>
           <br/>
           <button id="nine" className="btn btn-secondary" value="7" onClick={this.handleNumber}>7</button>
@@ -76,7 +82,7 @@ class App extends Component {
           <button id="one" className="btn btn-secondary" value="3" onClick={this.handleNumber}>3</button>
           <button id="add" className="btn btn-light" value="+" onClick={this.handleOperator}>+</button>
           <br/>
-          <button id="zero" className="btn btn-secondary lg-btn" value="0" onClick={this.handleButton}>0</button>
+          <button id="zero" className="btn btn-secondary lg-btn" value="0" onClick={this.handleNumber}>0</button>
           <button id="decimal" className="btn btn-secondary" value="." onClick={this.handleOperator}>.</button>
           <button id="equal" className="btn btn-success" onClick={this.handleEqual}>=</button>
         </div>

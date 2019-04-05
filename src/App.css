@@ -3,7 +3,7 @@
   margin-top: 25px;
 }
 #display {
-  margin-top: 25px;
+  margin-top: 20px;
   margin-left: auto;
   margin-right: auto;
   padding: 5px;
@@ -11,7 +11,7 @@
   color: white;
   font-size: 2em;
   width:275px;
-  height: 50px;
+  height: 70px;
   border-top-left-radius: 20%;
   border-top-right-radius: 20%;
 }
