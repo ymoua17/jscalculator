@@ -9,11 +9,14 @@
   padding: 5px;
   background-color: slategrey;
   color: white;
-  font-size: 2em;
-  width:275px;
+  font-size: 3em;
+  max-width:275px;
+  overflow: hidden;
+  text-overflow: ellipsis;
   height: 70px;
   border-top-left-radius: 20%;
   border-top-right-radius: 20%;
+  text-align: right;
 }
 .inputs {
   background-color: lightseagreen;

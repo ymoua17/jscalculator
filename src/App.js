@@ -18,12 +18,7 @@ class App extends Component {
       output: '',
     })
   }
-  //percent button -> needs to fix
-  handlePercentButton = () => {
-    this.setState({
-      
-    })
-  }
+
   //button to enter a numeric value
   handleNumber = (num) => {
     this.setState({
@@ -60,7 +55,7 @@ class App extends Component {
         <h3>Javascript Calculator</h3>
         <h5>**Created by ymoua17**</h5>
         <div id='display'>
-          {displayOutput}
+         {displayOutput}
         </div>
         <div className="inputs">
           <button id="clearAll" className="btn btn-danger lg-btn" onClick={this.handleClearAll}>AC</button>
