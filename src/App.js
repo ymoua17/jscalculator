@@ -11,11 +11,18 @@ class App extends Component {
       decimal: "."
     };
   }
-
+  //Tasks
+  // - fix the output max number
   //erase all data on the output display
   handleClearAll = () => {
     this.setState({
       output: '',
+    })
+  }
+  //button to delete the last value
+  handleDeleteButton = () => {
+    this.setState({
+      output: this.state.output.substring(0, this.state.output.length -1 ),
     })
   }
 
@@ -55,11 +62,11 @@ class App extends Component {
         <h3>Javascript Calculator</h3>
         <h5>**Created by ymoua17**</h5>
         <div id='display'>
-         {displayOutput}
+           {displayOutput}
         </div>
         <div className="inputs">
           <button id="clearAll" className="btn btn-danger lg-btn" onClick={this.handleClearAll}>AC</button>
-          <button id="Percent" className="btn btn-light" onClick={this.handlePercentButton}>%</button>
+          <button id="delete" className="btn btn-light" onClick={this.handleDeleteButton}>Del</button>
           <button id="divide" className="btn btn-light operator" value="/" onClick={this.handleOperator}>/</button>
           <br/>
           <button id="nine" className="btn btn-secondary" value="7" onClick={this.handleNumber}>7</button>
