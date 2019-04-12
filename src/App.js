@@ -48,10 +48,27 @@ class App extends Component {
     if (this.state.output === "" || this.state.operators.includes(this.state.output[this.state.output.length-1])) {
       console.log("not a solvable expression");
     } else {
-      this.setState({
-        //eslint-disable-next-line 
-        output: eval(this.state.output).toString(),
-      })
+      // NEEDS TO FIX RIGHT HERE
+
+      
+      //eslint-disable-next-line 
+      if (eval(this.state.output).toString().includes(".")) {
+        console.log("step 1")
+         //eslint-disable-next-line 
+        if (eval(this.state.output).toString().length - eval(this.state.output).toString().indexOf(".") > 3) {
+          this.setState({
+            //eslint-disable-next-line 
+            output:  eval(this.state.output).toFixed(3)
+          })
+          console.log("step 2")
+        }
+      } else {
+        this.setState({
+          //eslint-disable-next-line 
+          output: eval(this.state.output).toString()
+        })
+        console.log("step 3")
+      }
     }
   }
   
