@@ -12,12 +12,22 @@
   font-size: 3em;
   max-width:275px;
   overflow: hidden;
-  text-overflow: ellipsis;
+  text-overflow: clip;
   height: 70px;
   border-top-left-radius: 20%;
   border-top-right-radius: 20%;
   text-align: right;
 }
+.output-display {
+  height: 65px;
+  width: 265px;
+}
+.small-display {
+  font-size: 2rem;
+  overflow-wrap: break-word;
+  line-height: 1em;
+}
+
 .inputs {
   background-color: lightseagreen;
   width:275px;

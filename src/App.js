@@ -12,7 +12,8 @@ class App extends Component {
     };
   }
   //Tasks
-  // - fix the output max number
+  //maximum decimals = 4
+  
   //erase all data on the output display
   handleClearAll = () => {
     this.setState({
@@ -56,13 +57,20 @@ class App extends Component {
   
   
   render() {
-    const displayOutput = this.state.output;
+    //changes font size dependent on output length
+    const displayOutput = () => {
+      if (this.state.output.length < 10) {
+        return <p className="output-display">{this.state.output}</p>;
+      } else {
+        return <p className="output-display small-display">{this.state.output}</p>
+      }
+    }
     return (
       <div className="App">
         <h3>Javascript Calculator</h3>
         <h5>**Created by ymoua17**</h5>
         <div id='display'>
-           {displayOutput}
+          {displayOutput()}
         </div>
         <div className="inputs">
           <button id="clearAll" className="btn btn-danger lg-btn" onClick={this.handleClearAll}>AC</button>
