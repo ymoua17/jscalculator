@@ -6,80 +6,92 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      output: '',
-      operators: [".", "+", "-", "*", "/"],
+      input: '',
+      operators: ["+", "-", "*", "/"],
       decimal: "."
     };
   }
   //Tasks
-  //maximum decimals = 4
+  //when an operator is pressed, resets the display number back to blank
   
   //erase all data on the output display
   handleClearAll = () => {
     this.setState({
-      output: '',
+      input: ''
     })
   }
   //button to delete the last value
   handleDeleteButton = () => {
     this.setState({
-      output: this.state.output.substring(0, this.state.output.length -1 ),
+      input: this.state.input.substring(0, this.state.input.length -1),
     })
   }
 
   //button to enter a numeric value
   handleNumber = (num) => {
     this.setState({
-      output: this.state.output + num.target.value,
+      input: this.state.input + num.target.value
     })
   }
-  //check if the first input is not empty and check if last input is an operator or decimal to prevent double entries
+
+  //checks if value from last operator contains a decimal point, if not user may add a decimal
+  // need to fix error when pressing decimal button after hitting equals
+  handleDecimal = (decimal) => {
+    let indexOfOperator = -1;
+    for (let i=0; i < this.state.operators.length; i++) {
+      if (this.state.input.lastIndexOf(this.state.operators[i]) !== -1 || this.state.input.lastIndexOf(this.state.operators[i]) >= indexOfOperator) {
+        indexOfOperator = this.state.input.lastIndexOf(this.state.operators[i]);
+      } else {
+        console.log("cannot enter this value")
+      }
+    }
+    if (indexOfOperator === -1 && !this.state.input.includes(this.state.decimal)) {
+      this.setState({
+        input: this.state.input + decimal.target.value
+      })
+    } else if (indexOfOperator !== -1) {
+      if (!this.state.input.substring(indexOfOperator+1).includes(this.state.decimal)) {
+        this.setState({
+          input: this.state.input + decimal.target.value
+        })
+      } else {
+        console.log("cannot enter this value")
+      } 
+    } else {
+      console.log("cannot enter this value")
+    }
+  }
+
+  //check if input has a value first, if yes then add an operator
   handleOperator = (operator) => {
-    if (this.state.output === "" || this.state.operators.includes(this.state.output[this.state.output.length-1])) {
-      console.log("enter a number");
+    if (this.state.input === "" || this.state.operators.includes(this.state.input[this.state.input.length - 1])) {
+      console.log("enter a number")
     } else {
       this.setState({
-        output: this.state.output + operator.target.value,
+        input: this.state.input + operator.target.value
       })
     }
   }
   //check if the last value is not an operator before evaluating
   handleEqual = () => {
-    if (this.state.output === "" || this.state.operators.includes(this.state.output[this.state.output.length-1])) {
-      console.log("not a solvable expression");
+    if (!this.state.operators.includes(this.state.input[this.state.input.length - 1])) {
+      this.setState({
+        // eslint-disable-next-line 
+        input: Math.round(eval(this.state.input)*1000)/1000
+      })
     } else {
-      // NEEDS TO FIX RIGHT HERE
-
-      
-      //eslint-disable-next-line 
-      if (eval(this.state.output).toString().includes(".")) {
-        console.log("step 1")
-         //eslint-disable-next-line 
-        if (eval(this.state.output).toString().length - eval(this.state.output).toString().indexOf(".") > 3) {
-          this.setState({
-            //eslint-disable-next-line 
-            output:  eval(this.state.output).toFixed(3)
-          })
-          console.log("step 2")
-        }
-      } else {
-        this.setState({
-          //eslint-disable-next-line 
-          output: eval(this.state.output).toString()
-        })
-        console.log("step 3")
-      }
+      console.log("enter a valid expression")
     }
   }
   
   
   render() {
-    //changes font size dependent on output length
+    // changes font size dependent on output length
     const displayOutput = () => {
-      if (this.state.output.length < 10) {
-        return <p className="output-display">{this.state.output}</p>;
+      if (this.state.input.length < 10) {
+        return <p className="output-display">{this.state.input}</p>;
       } else {
-        return <p className="output-display small-display">{this.state.output}</p>
+        return <p className="output-display small-display">{this.state.input}</p>
       }
     }
     return (
@@ -110,7 +122,7 @@ class App extends Component {
           <button id="add" className="btn btn-light" value="+" onClick={this.handleOperator}>+</button>
           <br/>
           <button id="zero" className="btn btn-secondary lg-btn" value="0" onClick={this.handleNumber}>0</button>
-          <button id="decimal" className="btn btn-secondary" value="." onClick={this.handleOperator}>.</button>
+          <button id="decimal" className="btn btn-secondary" value="." onClick={this.handleDecimal}>.</button>
           <button id="equal" className="btn btn-success" onClick={this.handleEqual}>=</button>
         </div>
       </div>
