@@ -35,7 +35,6 @@ class App extends Component {
   }
 
   //checks if value from last operator contains a decimal point, if not user may add a decimal
-  // need to fix error when pressing decimal button after hitting equals
   handleDecimal = (decimal) => {
     let indexOfOperator = -1;
     for (let i=0; i < this.state.operators.length; i++) {
@@ -73,11 +72,17 @@ class App extends Component {
     }
   }
   //check if the last value is not an operator before evaluating
+  // if value is larger than 10, only show 3 decimal spaces
+  // if value is larger than 1000, only show 2 decimal spaces
+  // if value is larger than 100000, only show 1 decimal spaces
+  // if value is larger than 10000000, only show 0 decimal spaces
+
   handleEqual = () => {
     if (!this.state.operators.includes(this.state.input[this.state.input.length - 1])) {
+      // eslint-disable-next-line 
+      const result = Math.round(eval(this.state.input)*100000)/100000
       this.setState({
-        // eslint-disable-next-line 
-        input: Math.round(eval(this.state.input)*1000)/1000
+        input: result.toString(),
       })
     } else {
       console.log("enter a valid expression")
