@@ -12,7 +12,6 @@ class App extends Component {
     };
   }
   //Tasks
-  //needs to fix error where you cannont enter a single decimal point
   
   //erase all data on the output display
   handleClearAll = () => {
@@ -88,7 +87,7 @@ class App extends Component {
     if (!this.state.operators.includes(this.state.input[this.state.input.length - 1]) && this.state.input[this.state.input.length-1] !== this.state.decimal) {
       // eslint-disable-next-line 
       let result = eval(this.state.input)
-      if (result <= 10) {
+      if (result <= 100) {
         result = Math.round(result * 1000)/1000;
         this.setState({
           input: result.toString(),
@@ -113,7 +112,7 @@ class App extends Component {
   render() {
     // changes font size dependent on output length
     const displayOutput = () => {
-      if (this.state.input.length < 10) {
+      if (this.state.input.length < 12) {
         return <p className="output-display">{this.state.input}</p>;
       } else {
         return <p className="output-display small-display">{this.state.input}</p>
