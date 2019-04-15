@@ -12,7 +12,7 @@ class App extends Component {
     };
   }
   //Tasks
-  //when an operator is pressed, resets the display number back to blank
+  //needs to fix error where you cannont enter a single decimal point
   
   //erase all data on the output display
   handleClearAll = () => {
@@ -35,6 +35,7 @@ class App extends Component {
   }
 
   //checks if value from last operator contains a decimal point, if not user may add a decimal
+  //fix if only value is an decimal, console log an error
   handleDecimal = (decimal) => {
     let indexOfOperator = -1;
     for (let i=0; i < this.state.operators.length; i++) {
@@ -62,28 +63,47 @@ class App extends Component {
   }
 
   //check if input has a value first, if yes then add an operator
+  //if last input is an operator, replace it with the an operator if pressed.
   handleOperator = (operator) => {
-    if (this.state.input === "" || this.state.operators.includes(this.state.input[this.state.input.length - 1])) {
+    if (this.state.input === "" || this.state.input[this.state.input.length-1] === this.state.decimal) {
       console.log("enter a number")
+    } else if (this.state.operators.includes(this.state.input[this.state.input.length - 1])) {
+      //remove last index value
+      //add new operator to the of the input
+      this.setState({
+        input: this.state.input.substr(0, this.state.input.length -1) + operator.target.value,
+      })
     } else {
       this.setState({
-        input: this.state.input + operator.target.value
+        input: this.state.input + operator.target.value,
       })
     }
   }
   //check if the last value is not an operator before evaluating
-  // if value is larger than 10, only show 3 decimal spaces
-  // if value is larger than 1000, only show 2 decimal spaces
-  // if value is larger than 100000, only show 1 decimal spaces
-  // if value is larger than 10000000, only show 0 decimal spaces
+  // if 
+  // if value is less than 10, only show 3 decimal spaces
+  // if value is less than 10000, only show 2 decimal spaces else show no decimal
 
   handleEqual = () => {
-    if (!this.state.operators.includes(this.state.input[this.state.input.length - 1])) {
+    if (!this.state.operators.includes(this.state.input[this.state.input.length - 1]) && this.state.input[this.state.input.length-1] !== this.state.decimal) {
       // eslint-disable-next-line 
-      const result = Math.round(eval(this.state.input)*100000)/100000
-      this.setState({
-        input: result.toString(),
-      })
+      let result = eval(this.state.input)
+      if (result <= 10) {
+        result = Math.round(result * 1000)/1000;
+        this.setState({
+          input: result.toString(),
+        })
+      } else if (result <= 10000) {
+        result = Math.round(result * 100)/100;
+        this.setState({
+          input: result.toString(),
+        })
+      } else {
+        result = Math.round(result);
+        this.setState({
+          input: result.toString(),
+        })
+      }   
     } else {
       console.log("enter a valid expression")
     }
