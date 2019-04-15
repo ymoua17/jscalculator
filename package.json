@@ -1,6 +1,6 @@
 {
   "homepage": "http://ymoua17.github.io/jscalculator",
-  "name": "my-app",
+  "name": "jscalculator",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
