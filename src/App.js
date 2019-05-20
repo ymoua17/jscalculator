@@ -124,7 +124,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <h3>Javascript Calculator</h3>
-        <h5>**Created by ymoua17**</h5>
+        <a href="https://github.com/ymoua17/jscalculator" target="_blank"  rel="noopener noreferrer" className="link">**Created by ymoua17**</a>
         <div id='display'>
           {displayOutput()}
         </div>
