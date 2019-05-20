@@ -1,22 +1,20 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './App.css';
 
 
-class App extends Component {
+class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      input: '',
+      input: '0',
       operators: ["+", "-", "*", "/"],
       decimal: "."
     };
   }
-  //Tasks
-  
   //erase all data on the output display
   handleClearAll = () => {
     this.setState({
-      input: ''
+      input: '0'
     })
   }
   //button to delete the last value
@@ -28,9 +26,15 @@ class App extends Component {
 
   //button to enter a numeric value
   handleNumber = (num) => {
-    this.setState({
-      input: this.state.input + num.target.value
-    })
+    if (this.state.input === "0") {
+      this.setState({
+        input: num.target.value
+      })
+    } else {
+      this.setState({
+        input: this.state.input + num.target.value
+      })
+    }
   }
 
   //checks if value from last operator contains a decimal point, if not user may add a decimal
@@ -79,8 +83,7 @@ class App extends Component {
     }
   }
   //check if the last value is not an operator before evaluating
-  // if 
-  // if value is less than 10, only show 3 decimal spaces
+  // if value is less than 100, only show 4 decimal spaces
   // if value is less than 10000, only show 2 decimal spaces else show no decimal
 
   handleEqual = () => {
@@ -88,7 +91,7 @@ class App extends Component {
       // eslint-disable-next-line 
       let result = eval(this.state.input)
       if (result <= 100) {
-        result = Math.round(result * 1000)/1000;
+        result = Math.round(result * 10000)/10000;
         this.setState({
           input: result.toString(),
         })
@@ -126,32 +129,33 @@ class App extends Component {
           {displayOutput()}
         </div>
         <div className="inputs">
-          <button id="clearAll" className="btn btn-danger lg-btn" onClick={this.handleClearAll}>AC</button>
+          <button id="clear" className="btn btn-danger lg-btn" onClick={this.handleClearAll}>AC</button>
           <button id="delete" className="btn btn-light" onClick={this.handleDeleteButton}>Del</button>
           <button id="divide" className="btn btn-light operator" value="/" onClick={this.handleOperator}>/</button>
           <br/>
-          <button id="nine" className="btn btn-secondary" value="7" onClick={this.handleNumber}>7</button>
+          <button id="seven" className="btn btn-secondary" value="7" onClick={this.handleNumber}>7</button>
           <button id="eight" className="btn btn-secondary" value="8" onClick={this.handleNumber}>8</button>
-          <button id="seven" className="btn btn-secondary" value="9" onClick={this.handleNumber}>9</button>
+          <button id="nine" className="btn btn-secondary" value="9" onClick={this.handleNumber}>9</button>
           <button id="multiply" className="btn btn-light" value="*" onClick={this.handleOperator}>*</button>
           <br/>
-          <button id="six" className="btn btn-secondary" value="4" onClick={this.handleNumber}>4</button>
+          <button id="four" className="btn btn-secondary" value="4" onClick={this.handleNumber}>4</button>
           <button id="five" className="btn btn-secondary" value="5" onClick={this.handleNumber}>5</button>
-          <button id="four" className="btn btn-secondary" value="6" onClick={this.handleNumber}>6</button>
+          <button id="six" className="btn btn-secondary" value="6" onClick={this.handleNumber}>6</button>
           <button id="subtract" className="btn btn-light" value="-" onClick={this.handleOperator}>-</button>
           <br/>
-          <button id="three" className="btn btn-secondary" value="1" onClick={this.handleNumber}>1</button>
+          <button id="one" className="btn btn-secondary" value="1" onClick={this.handleNumber}>1</button>
           <button id="two" className="btn btn-secondary" value="2" onClick={this.handleNumber}>2</button>
-          <button id="one" className="btn btn-secondary" value="3" onClick={this.handleNumber}>3</button>
+          <button id="three" className="btn btn-secondary" value="3" onClick={this.handleNumber}>3</button>
           <button id="add" className="btn btn-light" value="+" onClick={this.handleOperator}>+</button>
           <br/>
           <button id="zero" className="btn btn-secondary lg-btn" value="0" onClick={this.handleNumber}>0</button>
           <button id="decimal" className="btn btn-secondary" value="." onClick={this.handleDecimal}>.</button>
-          <button id="equal" className="btn btn-success" onClick={this.handleEqual}>=</button>
+          <button id="equals" className="btn btn-success" onClick={this.handleEqual}>=</button>
         </div>
       </div>
     );
   }
 }
+
 
 export default App;
